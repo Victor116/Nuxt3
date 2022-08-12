@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.box-shadow{
+  box-shadow: 0 8px 19px 0 rgb(3 9 30 / 9%);
+}
+
+.efect-float{
+  transition: transform 0.2s ease 0s;
+}
+.efect-float:hover{
+  transform: translateY(-8px);
+}
