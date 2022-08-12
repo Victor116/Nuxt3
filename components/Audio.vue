@@ -25,6 +25,7 @@ const Play2 = () => {
   }, 1000)
 }
 
+
 const InitCanvas = () => {
   const container = document.getElementById('container')
   const canvas = document.getElementById('canvas1')
@@ -57,12 +58,7 @@ const InitCanvas = () => {
       x = 0
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       analyser.getByteFrequencyData(dataArray) // animation bar
-      for (let index = 0; index < bufferLength; index++) {
-        barHeigth = dataArray[index]
-        ctx.fillStyle = 'white'
-        ctx.fillRect(x, canvas.height - barHeigth, barWidth, barHeigth)
-        x += barWidth
-      }
+      drawVisualiser(bufferLength, x, barWidth, barHeigth, dataArray)
       requestAnimationFrame(animate)
     }
     animate()
@@ -75,6 +71,7 @@ const InitCanvas = () => {
     audio1.load()
     audio1.play()
 
+    const audioContext = new AudioContext()
     audioSource = audioContext.createMediaElementSource(audio1)
     analyser = audioContext.createAnalyser()
     audioSource.connect(analyser)
@@ -96,15 +93,19 @@ const InitCanvas = () => {
     }
     animate()
   })
-}
-  drawVisualiser = (bufferLength, x, barWidth, barHeigth, dataArray) => {
+
+  function drawVisualiser (bufferLength, x, barWidth, barHeigth, dataArray) {
     for (let index = 0; index < bufferLength; index++) {
-        barHeigth = dataArray[index] * 2
-        ctx.fillStyle = 'white'
-        ctx.fillRect(x, canvas.height - barHeigth, barWidth, barHeigth)
-        x += barWidth
-      }
+      barHeigth = dataArray[index] * 2
+      const red = index * barHeigth/20
+      const green = index * 4
+      const blue =  barHeigth / 2
+      ctx.fillStyle = 'rgb('+ red +','+ green +','+ blue +')'
+      ctx.fillRect(x, canvas.height - barHeigth, barWidth, barHeigth)
+      x += barWidth
+    }
   }
+}
 
 
 </script>
