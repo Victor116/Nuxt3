@@ -1,4 +1,5 @@
 <script setup>
+import Mouse from '@/components/Mouse.vue'
   useHead({
     title: 'Sitio Oficial de Lucha Libre',
     viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
@@ -12,9 +13,7 @@
 <template lang="">
   <div>
     <div class="container">
-      <h1 class="text-2xl font-bold underline text-red-600">
-        Hello world!
-      </h1>
+      <Mouse />
     </div>
   </div>
 </template>
