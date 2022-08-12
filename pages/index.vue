@@ -1,5 +1,6 @@
 <script setup>
 import Mouse from '@/components/Mouse.vue'
+import Audio from '@/components/Audio.vue'
   useHead({
     title: 'Sitio Oficial de Lucha Libre',
     viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
@@ -13,7 +14,8 @@ import Mouse from '@/components/Mouse.vue'
 <template lang="">
   <div>
     <div class="container">
-      <Mouse />
+      <Audio />
+      <!-- <Mouse /> -->
     </div>
   </div>
 </template>
