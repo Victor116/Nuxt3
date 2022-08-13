@@ -46,7 +46,7 @@ const InitCanvas = () => {
     analyser = audioContext.createAnalyser()
     audioSource.connect(analyser)
     analyser.connect(audioContext.destination)
-    analyser.fftSize = 64
+    analyser.fftSize = 128 // Number of bars
 
     const bufferLength = analyser.frequencyBinCount // efect
     const dataArray = new Uint8Array(bufferLength)
@@ -59,6 +59,7 @@ const InitCanvas = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       analyser.getByteFrequencyData(dataArray) // animation bar
       drawVisualiser(bufferLength, x, barWidth, barHeigth, dataArray)
+      drawVisualiserCircle(bufferLength, x, barWidth, barHeigth, dataArray)
       requestAnimationFrame(animate)
     }
     animate()
@@ -89,6 +90,7 @@ const InitCanvas = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       analyser.getByteFrequencyData(dataArray) // animation bar
       drawVisualiser(bufferLength, x, barWidth, barHeigth, dataArray)
+      drawVisualiserCircle(bufferLength, x, barWidth, barHeigth, dataArray)
       requestAnimationFrame(animate)
     }
     animate()
@@ -103,6 +105,19 @@ const InitCanvas = () => {
       ctx.fillStyle = 'rgb('+ red +','+ green +','+ blue +')'
       ctx.fillRect(x, canvas.height - barHeigth, barWidth, barHeigth)
       x += barWidth
+    }
+  }
+  function drawVisualiserCircle (bufferLength, x, barWidth, barHeigth, dataArray) {
+    for (let index = 0; index < bufferLength; index++) {
+      barHeigth = dataArray[index]
+      ctx.save()
+      ctx.translate(canvas.width/2, canvas.height/3)
+      ctx.rotate(index * Math.PI * 3 / bufferLength)
+      const hue = index * 5
+      ctx.fillStyle = 'hsl('+ hue +', 100%, 50%)'
+      ctx.fillRect(0, 0, barWidth, barHeigth)
+      x += barWidth
+      ctx.restore()
     }
   }
 }
